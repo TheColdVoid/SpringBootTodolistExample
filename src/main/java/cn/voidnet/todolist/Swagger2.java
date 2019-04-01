@@ -54,7 +54,7 @@ public class Swagger2 {
         List<ResponseMessage> messages=
                 new ArrayList<>(List.of(message200,message500,message400,message404,message503));
         return new Docket(DocumentationType.SWAGGER_2)
-                .host("tanwanlanyue.xyz")
+                .host("localhost:8080")
                 .pathProvider(new RelativePathProvider(servletContext) {
                     @Override
                     public String getApplicationBasePath() {
