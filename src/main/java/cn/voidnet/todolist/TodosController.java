@@ -27,6 +27,9 @@ public class TodosController {
     }
 
     @ApiOperation(value = "获取某一个待办事项")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "要获取的待办事项的ID",name = "id",required = true,paramType = "path",example = "1")
+    })
     @GetMapping("/{id}")
     public Todo getTodo(@PathVariable("id") Long id) throws TodoNotFoundException {
         log.info("Request Find Todo: " + id);
