@@ -1,11 +1,10 @@
-package cn.voidnet.todolist;
+package cn.voidnet.todolist.todo;
 
+import cn.voidnet.todolist.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Todo {
@@ -14,13 +13,17 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "待办事项的内容(文本)",example = "fix bugs")
+    @ApiModelProperty(value = "待办事项的内容(文本)", example = "fix bugs")
     private String text;
 
-    @ApiModelProperty(value = "标识待办事项是否已经做完",example = "true")
-    private Boolean done;
+    @ApiModelProperty(value = "标识待办事项是否已经做完", example = "true")
+    private Boolean done = false;
 
-    protected Todo() {
+    @ManyToOne
+    @JsonIgnore
+    private User user;
+
+    public Todo() {
     }
 
     public Todo(String text) {
@@ -57,5 +60,14 @@ public class Todo {
                 "id=" + id +
                 ", text='" + text + '\'' +
                 '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Todo setUser(User user) {
+        this.user = user;
+        return this;
     }
 }
